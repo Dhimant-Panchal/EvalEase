@@ -1,0 +1,58 @@
+GET /api/student/[urn]/submissions
+    Return submission rows owned by the student.
+GET /api/student/[urn]/modules
+    Return module rows participated in by the given student.
+GET /api/student/[urn]/workables
+    Return module workable rows participated in by the given student.
+
+GET /api/convener/[convener_uid]/modules
+    Return module rows participated in by the convener.
+
+POST /api/convener/assign?acad_id={acad_id}&stu_urn={urn}&modmark_id={id}
+
+GET /api/examiner/[examiner_uid]/workables
+    Return workable UIDs assigned to the given examiner.
+GET /api/examiner/[examiner_uid]/search
+    Return examiner UIDs given a name (fuzzy search).
+POST /api/examiner/[examiner_uid]/mark?uid=[module_workable_uid]
+    Submit mark for given module workable.
+
+GET /api/workable/[workable_uid]/assignee/list --> GET /api/workable/examiners/list?stu_urn={urn}&modmark_id={id}
+    Get examiner UIDs assigned to workable.
+
+GET /api/workable/tags/search?text={text} --> GET /api/foc/tags/search?text={text}
+    Fuzzy search tags that can be added to a student submission.
+
+GET /api/workable/tags/list?stu_urn={urn}&modmark_id={id}
+    List tags associated with the given student submission.
+
+POST /api/workable/[workable_uid]/tags/add?foc_id={id} --> POST /api/workable/tags/add?foc_id={id}&stu_urn={urn}&modmark_id={m_id}
+    Add a tag to the student submission (this can fail). ( it passed)
+
+GET /api/convener/[module_workable_uid]/check
+    Return module workable 'status', validity, averages, etc.
+
+GET /api/workable/examiner/reccomendations?modmark_id={id}&stu_urn={urn}
+    List examiner UIDs + names who are likely to be interested in this workable.
+    return academics containing tags from student submissions
+---
+
+
+COMPLETED so far
+
+GET /api/student/{urn}/modules - get modules of student
+GET /api/student/submissions?urn={urn}&module_code={code} - get submissions of student from student's urn and module code
+
+GET /api/convener/{acad_id}/modules - get module data in which convener is lead
+GET /api/convener/[module_workable_uid]/check - returns module workable - student urns that failed checks
+POST /api/convener/assign?acad_id={acad_id}&stu_urn={urn}&modmark_id={id} - Assign examiner to module workable for student
+
+POST /api/examiner/{modmark_id}/submit?stu_urn={urn}&acad_id={acad_id}&marker_mark={mark} - submit marks of a student markable
+GET /api/examiner/[examiner_uid]/workables - get all workables for an examiner
+GET /api/examiner/search?text={text} - retrieve academic ids by searhing firstname/lastname ; input from text
+
+GET /api/foc/tags/search?text={text} - return all tags containing text
+
+GET /api/workable/tags/list?stu_urn={urn}&modmark_id={id} - return all tags in student submission
+POST /api/workable/tags/add?foc_id={id}&stu_urn={urn}&modmark_id={m_id} - add a tag to student submission
+GET /api/workable/examiner/reccomendations?modmark_id={id}&stu_urn={urn} - get reccomended examiners from student submission focs
